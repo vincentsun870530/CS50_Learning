@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Login
+{% endblock %}
+{% block body %}
+<div class="container mx-auto">
+    <div class="p-3 border bg-light">
+        {% for message in get_flashed_messages() %}
+        <div class="alert-error">Error: {{ message }}</div>
+        {% endfor %}
+        <form class="p-4" name="form-container" action={{url_for('register')}} method="post">
+            <div class="form-group">
+                <label for="exampleDropdownFormEmail1">Email address</label>
+                <input type="email" class="form-control" name="email" id="exampleDropdownFormEmail1"
+                       placeholder="email@example.com">
+            </div>
+            <div class="form-group">
+                <label for="exampleDropdownFormPassword1">Password</label>
+                <input type="password" class="form-control" name="password" id="exampleDropdownFormPassword1"
+                       placeholder="Password">
+            </div>
+            <div class="form-group">
+                <label for="exampleDropdownFormPassword2">Re-password</label>
+                <input type="password" class="form-control" name="re-password" id="exampleDropdownFormPassword2"
+                       placeholder="Password">
+            </div>
+            <div class="form-group">
+                <label for="exampleDropdownFormName">Name</label>
+                <input type="text" class="form-control" name="name" id="exampleDropdownFormName"
+                       placeholder="Last name and First name">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

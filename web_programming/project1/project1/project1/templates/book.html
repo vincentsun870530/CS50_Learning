@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+
+{% block title %}
+book
+{% endblock %}
+
+{% block body %}
+<form action="{{ url_for('index') }}">
+    {{ book.title}},{{book.author}},{{book.year}},{{book.isbn}}
+    <div class="form-group">
+        <button class="btn btn-primary">Back to search page</button>
+    </div>
+</form>
+{% endblock %}
