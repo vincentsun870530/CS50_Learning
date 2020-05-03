@@ -1,9 +1,6 @@
 *.iml
 *.xml
-web_programming/project1/project1/project1/__pycache__/application.cpython-37.pyc
-web_programming/project1/project1/project1/application.py
-web_programming/project1/project1/project1/__pycache__/application.cpython-37.pyc
-web_programming/project1/project1/project1/application.py
+web_programming/project1/flask_session/*
 web_programming/src1/src1/alert.html
 web_programming/src1/src1/attribute.html
 web_programming/src1/src1/before.html
