@@ -51,7 +51,7 @@ def register():
         app.logger.info(email, password, name)
 
         # Check email is existed or not
-        
+
 
         # Connect to db and insert user
         user = User(email=email, password=password, name=name)
