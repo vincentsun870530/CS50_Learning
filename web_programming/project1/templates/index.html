@@ -5,7 +5,7 @@ Welcome
 {% endblock %}
 
 {% block body %}
-<h1>Search a book</h1>
+<h1>Hi {{user.name}}, Search a book</h1>
 
 <form action="{{ url_for('search') }}" method="get">
 

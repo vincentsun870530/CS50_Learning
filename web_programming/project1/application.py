@@ -30,6 +30,23 @@ def index():
 
 @app.route("/login", methods=["POST", "GET"])
 def login():
+    g.user = None
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+        app.logger.info(email)
+        app.logger.info(password)
+        # Check email is existed or not
+        db_user = User.query.filter_by(email=email).first()
+        # app.logger.info(db_user.email)
+        # app.logger.info(db_user.password)
+        # result = check_password_hash(db_user.password, password)
+        # app.logger.info(result)
+        if db_user is None or not check_password_hash(db_user.password, password):
+            flash("This is wrong username or password")
+            return redirect(url_for('login'))
+        g.user = db_user
+        return render_template("index.html", user=db_user)
     return render_template("login.html")
 
 
@@ -45,18 +62,29 @@ def register():
         # app.logger.info(check_password_hash(password, request.form['re-password']))
         # Check password and re-enter password are the same
         if not check_password_hash(password, request.form['re-password']):
-            flash("Please confirm password you entered is same")
-            # app.logger.info("Please confirm password you entered is same")
+            flash("Please confirm password you entered is same", "error")
             return redirect(url_for('register'))
-        app.logger.info(email, password, name)
+        # app.logger.info(email, password, name)
 
         # Check email is existed or not
-
+        db_user = User.query.filter_by(email=email).first()
+        if db_user is not None:
+            flash("This email is existed", "error")
+            return redirect(url_for('register'))
 
         # Connect to db and insert user
         user = User(email=email, password=password, name=name)
         db.session.add(user)
+        db.session.flush()
+
+        # At this point, the object user has been pushed to the DB,
+        # and has been automatically assigned a unique primary key id
+        app.logger.info(user.id)
+        session['user_id'] = user.id
+
         db.session.commit()
+        flash("Successful registered", "info")
+        return redirect(url_for('login'))
 
     return render_template("register.html")
 
